@@ -19,7 +19,7 @@ mix.styles([
 .scripts([
     'resources/assets/plantilla/js/jquery-3.2.1.min.js',
     'resources/assets/plantilla/js/popper.min.js',
-    'resources/assets/plantilla/jsbootstrap.min.js',
+    'resources/assets/plantilla/js/bootstrap.min.js',
     'resources/assets/plantilla/js/chart.js',
     'resources/assets/plantilla/js/pace.min.js',
     'resources/assets/plantilla/js/main.js'
