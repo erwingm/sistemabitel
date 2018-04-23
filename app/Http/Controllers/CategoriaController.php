@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\DB;
 use App\Categoria;
 
 class CategoriaController extends Controller
@@ -12,11 +13,25 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $categorias = Categoria::all();
-        return $categorias;
+        if(!$request->ajax()) return redirect('/');
+        $categorias = Categoria::paginate(2);
+        return [
+            'pagination' => [
+                'total' => $categorias->total(),
+                'current_page' => $categorias->currentPage(),
+                'per_page' => $categorias->perPage(),
+                'last_page' => $categorias->lastPage(),
+                'from' => $categorias->firstItem(),
+                'to' => $categorias->lastItem(),
+                
+            ],
+
+            'categorias' => $categorias
+        ];
+        //return $categorias;
     }
 
 
@@ -28,6 +43,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $categoria = new Categoria();
         $categoria->nombre = $request->nombre;
         $categoria->descripcion = $request->descripcion;
@@ -45,6 +61,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request)    {
         //
+        if(!$request->ajax()) return redirect('/');
         $categoria = Categoria::findOrFail($request->id);
         $categoria->nombre = $request->nombre;
         $categoria->descripcion = $request->descripcion;
@@ -55,6 +72,7 @@ class CategoriaController extends Controller
     
     public function offcategoria(Request $request)    {
         //parecido a actualizar
+        if(!$request->ajax()) return redirect('/');
         $categoria = Categoria::findOrFail($request->id);
         $categoria->condicion = '0';
         $categoria->save();
@@ -63,6 +81,7 @@ class CategoriaController extends Controller
     public function oncategoria(Request $request)    {
         //
         //parecido a actualizar
+        if(!$request->ajax()) return redirect('/');
         $categoria = Categoria::findOrFail($request->id);
         $categoria->condicion = '1';
         $categoria->save();

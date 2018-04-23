@@ -71,23 +71,14 @@
                         </table>
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Ant</a>
+                                <li class="page-item" v-if="pagination.current_page > 1">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
                                 </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
+                                <li class="page-item" v-for="page in pageNumber" :key="page" :class="[page == isActived ? 'active': '']">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
                                 </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Sig</a>
+                                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
                                 </li>
                             </ul>
                         </nav>
@@ -158,20 +149,70 @@
                 errorCategoria : 0,
                 errorMostrarMesjCategoria : [],
                 // actualizar categoria
-                categoria_id:0
+                categoria_id:0,
+                //paginacion
+                pagination : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to' : 0,
+                },
+
+                offset : 3
+            }
+        },
+
+        computed: {
+            isActived: function(){
+                return this.pagination.current_page;
+
+            },
+            pageNumber: function(){
+                if(!this.pagination.to){
+                    return [];
+                }
+
+                var from = this.pagination.current_page - this.offset;
+                if(from < 1){
+                    from = 1;
+                }
+
+                var to = from + (this.offset * 2);
+                if(to >= this.pagination.last_page){
+                    to = this.pagination.last_page;
+                }
+
+                var pagesArray = [];
+                while(from <= to){
+                    pagesArray.push(from);
+                    from++;
+                }
+
+                return pagesArray;
             }
         },
         methods:{
-            listarCategoria(){
+            listarCategoria(page){
                 let me=this;
-
-                axios.get('/categoria').then(function(response) {
-                    me.arrayCategoria = response.data;
+                var url='/categoria?page=' + page;
+                axios.get(url).then(function(response) {
+                    var respuesta = response.data;
+                    me.arrayCategoria = respuesta.categorias.data;
+                    me.pagination = respuesta.pagination;
                 })
                 .catch(function (error){
 
                     console.log(error);
                 });
+            },
+            cambiarPagina(page){
+                let me = this;
+                // actualiza pagina actual
+                me.pagination.current_page = page;
+                // envia la peticion para visualizar los datos
+                me.listarCategoria(page);
             },
             registrarCategoria(){
                 
