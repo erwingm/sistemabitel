@@ -17,7 +17,15 @@ class CategoriaController extends Controller
     {
         //
         if(!$request->ajax()) return redirect('/');
-        $categorias = Categoria::paginate(2);
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        if($buscar==''){
+            $categorias = Categoria::orderBy('id','desc')->paginate(10);
+        }
+        else {
+            $categorias = Categoria::where($criterio,'like', '%'.$buscar.'%')->orderBy('id','desc')->paginate(10);
+        }
         return [
             'pagination' => [
                 'total' => $categorias->total(),
