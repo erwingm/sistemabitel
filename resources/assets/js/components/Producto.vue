@@ -2,14 +2,14 @@
     <main class="app-content">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
+                <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Categorías
-                        <button type="button" @click="abrirModal('categoria','registrar')" class="btn btn-secondary">
+                        <i class="fa fa-align-justify"></i> Productos
+                        <button type="button" @click="abrirModal('producto','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
                     </div>
@@ -21,8 +21,8 @@
                                       <option value="nombre">Nombre</option>
                                       <option value="descripcion">Descripción</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarCategoria(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarCategoria(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarProducto(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarProducto(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -30,32 +30,40 @@
                             <thead>
                                 <tr>
                                     <th>Opciones</th>
+                                    <th>Codigo</th>
                                     <th>Nombre</th>
+                                    <th>Categoria</th>
+                                    <th>Precio Venta</th>
+                                    <th>Stock</th>
                                     <th>Descripción</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="categoria in arrayCategoria" :key="categoria.id">
+                                <tr v-for="producto in arrayProducto" :key="producto.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('categoria','actualizar',categoria)" class="btn btn-warning btn-sm" >
+                                        <button type="button" @click="abrirModal('producto','actualizar',producto)" class="btn btn-warning btn-sm" >
                                           <i class="icon-pencil"></i>
                                         </button> &nbsp;
-                                        <template v-if="categoria.condicion">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarCategoria(categoria.id)">
+                                        <template v-if="producto.condicion">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarCategoria(producto.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
                                         <template v-else>
-                                            <button type="button" class="btn btn-info btn-sm" @click="activarCategoria(categoria.id)">
+                                            <button type="button" class="btn btn-info btn-sm" @click="activarCategoria(producto.id)">
                                                 <i class="icon-check"></i>
                                             </button>
                                         </template>
                                     </td>
-                                    <td v-text="categoria.nombre"></td>
-                                    <td v-text="categoria.descripcion"></td>
+                                    <td v-text="producto.codigo"></td>
+                                    <td v-text="producto.nombre"></td>
+                                    <td v-text="producto.nombre_categoria"></td>
+                                    <td v-text="producto.precio_venta"></td>
+                                    <td v-text="producto.stock"></td>
+                                    <td v-text="producto.descripcion"></td>
                                     <td>
-                                        <div v-if="categoria.condicion">
+                                        <div v-if="producto.condicion">
                                             <span class="badge badge-success">Activo</span>
                                         </div>
                                         <div v-else>
@@ -96,13 +104,46 @@
                         </div>
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                            
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="nombre" class="form-control" placeholder="Nombre de categoría">
-                                        
+                                        <select class="form-control" v-model="idcategoria">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="categoria in arrayCategoria" :key="categoria.id" :value="categoria.id" v-text="categoria.nombre"></option>
+                                        </select>
                                     </div>
                                 </div>
+
+                                  <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="codigo" class="form-control" placeholder="Codigo de Barras">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Nombre Producto</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="nombre" class="form-control" placeholder="Nombre Producto">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Precio Venta</label>
+                                    <div class="col-md-9">
+                                        <input type="number" v-model="precio_venta" class="form-control" placeholder="Nombre Producto">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">stock</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="stock" class="form-control" placeholder="Nombre Producto">
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                                     <div class="col-md-9">
@@ -112,7 +153,7 @@
 
                                 <div v-show="errorCategoria" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMesjCategoria" :key="error" v-text="error">
+                                        <div v-for="error in errorMostrarMesjProducto" :key="error" v-text="error">
 
                                         </div>
                                     </div>
@@ -137,17 +178,25 @@
     export default {
         data(){
             return{
+                producto_id:0,
+                idcategoria:0,
+                nombre_categoria:'',
+                codigo: '',
                 nombre : '',
+                precio_venta:0,
+                stock:0,
+                
                 descripcion : '',
+
                 // lista
-                arrayCategoria : [],
+                arrayProducto : [],
                 modal : 0,
                 tituloModal : '',
                 tipoAccion : 0,
-                errorCategoria : 0,
-                errorMostrarMesjCategoria : [],
+                errorProducto : 0,
+                errorMostrarMesjProducto : [],
                 // actualizar categoria
-                categoria_id:0,
+                
                 //paginacion
                 pagination : {
                     'total' : 0,
@@ -160,7 +209,8 @@
 
                 offset : 3,
                 criterio : 'nombre',
-                buscar : ''
+                buscar : '',
+                arrayCategoria:[]
             }
         },
 
@@ -194,13 +244,27 @@
             }
         },
         methods:{
-            listarCategoria(page,buscar,criterio){
+            listarProducto(page,buscar,criterio){
                 let me=this;
-                var url='/categoria?page=' + page + '&buscar=' + buscar + '&criterio='+criterio;
+                var url='/producto?page=' + page + '&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function(response) {
                     var respuesta = response.data;
-                    me.arrayCategoria = respuesta.categorias.data;
+                    me.arrayProducto = respuesta.productos.data;
                     me.pagination = respuesta.pagination;
+                })
+                .catch(function (error){
+
+                    console.log(error);
+                });
+            },
+            selectCategoria(){
+                 let me=this;
+                var url='/categoria/selectCategoria';
+                axios.get(url).then(function(response) {
+                   var respuesta = response.data;
+                   me.arrayCategoria = respuesta.categorias;
+                  
+                   //console.log(response);
                 })
                 .catch(function (error){
 
@@ -212,11 +276,11 @@
                 // actualiza pagina actual
                 me.pagination.current_page = page;
                 // envia la peticion para visualizar los datos
-                me.listarCategoria(page,buscar,criterio);
+                me.listarProducto(page,buscar,criterio);
             },
-            registrarCategoria(){
+            registrarProducto(){
                 
-                if(this.validarCategoria()){
+                if(this.validarProducto()){
                     return;
                 }
                 let me = this;
@@ -335,22 +399,22 @@
                     })
             },
             validarCategoria(){
-                this.errorCategoria=0;
-                this.errorMostrarMesjCategoria=[];
-                if(!this.nombre) this.errorMostrarMesjCategoria.push("El nombre de la categoria no puede estar vacio");
-                if(this.errorMostrarMesjCategoria.length) this.errorCategoria=1;
+                this.errorProducto=0;
+                this.errorMostrarMesjProducto=[];
+                if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre de la categoria no puede estar vacio");
+                if(this.errorMostrarMesjProducto.length) this.errorProducto=1;
                 return this.errorCategoria;
             },
             abrirModal(modelo, accion,  data=[]){
                 switch(modelo){
                     // verificamos si el modelo es el correspondiente
-                case "categoria":{
+                case "producto":{
 
                     switch(accion){
                         case 'registrar':
                         {
                             this.modal  = 1;
-                            this.tituloModal = 'Registrar Categoria';
+                            this.tituloModal = 'Registrar Producto';
                             
                             this.nombre = '';
                             this.descripcion = '';
@@ -361,7 +425,7 @@
                         {
                             //console.log(data);
                             this.modal=1;
-                            this.tituloModal='Actualizar Categoria';
+                            this.tituloModal='Actualizar Producto';
                             this.tipoAccion=2;
                             this.nombre = data['nombre'];
                             this.descripcion = data['descripcion'];
@@ -370,6 +434,8 @@
                         }
                     }
                 }
+
+                this.selectCategoria();
 
                 }
             },
@@ -382,7 +448,7 @@
         },
         mounted() {
             //para el listado de una tabla
-            this.listarCategoria(1,this.buscar,this.criterio);
+            this.listarProducto(1,this.buscar,this.criterio);
         }
     }
 </script>

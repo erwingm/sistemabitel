@@ -46,6 +46,8 @@ class ProductoController extends Controller
         //return $categorias;
     }
 
+
+
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
