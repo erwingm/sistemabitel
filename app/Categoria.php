@@ -9,7 +9,7 @@ class Categoria extends Model
     //
     //protected $table = 'categorias';
 
-    protected $table = ['nombre', 'descripcion','condicion'];
+    protected $fillable = ['nombre', 'descripcion','condicion'];
 
     public function articulos(){
         return $this->hasMany('App\Articulo');

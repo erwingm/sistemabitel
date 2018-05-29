@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
 
-                                <div v-show="errorCategoria" class="form-group row div-error">
+                                <div v-show="errorProducto" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMesjProducto" :key="error" v-text="error">
 
@@ -162,8 +162,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarCategoria()" >Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarCategoria()">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarProducto()" >Guardar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProducto()">Actualizar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -285,12 +285,17 @@
                 }
                 let me = this;
 
-                axios.post('/categoria/registrar',{
+                axios.post('/producto/registrar',{
+                    'idcategoria' : this.idcategoria,
                     'nombre' : this.nombre,
+                    'codigo' : this.codigo,
+                    'precio_venta' : this.precio_venta,
+                    'stock' : this.stock,
                     'descripcion' :this.descripcion
+
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCategoria(1,'','nombre');
+                    me.listarProducto(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
@@ -398,12 +403,16 @@
                     }
                     })
             },
-            validarCategoria(){
+            validarProducto(){
                 this.errorProducto=0;
                 this.errorMostrarMesjProducto=[];
-                if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre de la categoria no puede estar vacio");
+                if(this.idcategoria==0) this.errorMostrarMesjProducto.push("Seleccione una categoria")
+                if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
+                if(!this.stock) this.errorMostrarMesjProducto.push("El stock del Producto debe ser un numero entero y nu puede estar vacio");
+                if(!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta del articulo debe ser un numero y no puede estar vacio");
+
                 if(this.errorMostrarMesjProducto.length) this.errorProducto=1;
-                return this.errorCategoria;
+                return this.errorProducto;
             },
             abrirModal(modelo, accion,  data=[]){
                 switch(modelo){
@@ -415,9 +424,13 @@
                         {
                             this.modal  = 1;
                             this.tituloModal = 'Registrar Producto';
-                            
+                            this.idcategoria = 0;
+                            this.nombre_categoria = '';
+                            this.codigo ='';
                             this.nombre = '';
                             this.descripcion = '';
+                            this.precio_venta = 0;
+                            this.stock = 0;
                             this.tipoAccion = 1;
                             break;
                         }
@@ -427,9 +440,13 @@
                             this.modal=1;
                             this.tituloModal='Actualizar Producto';
                             this.tipoAccion=2;
+                            this.producto_id = data['id'];
+                            this.idcategoria = data['idcategoria'];
+                            this.codigo = data['codigo'];
                             this.nombre = data['nombre'];
+                            this.stock = data['stock'];
+                            this.precio_venta = data ['precio_venta'];
                             this.descripcion = data['descripcion'];
-                            this.categoria_id = data['id'];
                             break;
                         }
                     }
@@ -442,8 +459,15 @@
             cerrarModal(){
                 this.modal = 0;
                 this.tituloModal = '';
+                this.idcategoria = 0;
+                this.nombre_categoria='';
+                this.codigo ='';
                 this.nombre = '';
+                this.precio_venta =0;
+                this.stock =0;
                 this.descripcion = '';
+                this.errorProducto =0;
+
             }
         },
         mounted() {
