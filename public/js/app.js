@@ -49001,12 +49001,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             var me = this;
 
-            axios.post('/categoria/registrar', {
+            axios.post('/producto/registrar', {
+                'idcategoria': this.idcategoria,
+                'codigo': this.codigo,
                 'nombre': this.nombre,
+                'stock': this.stock,
+                'precio_venta': this.precio_venta,
                 'descripcion': this.descripcion
             }).then(function (response) {
                 me.cerrarModal();
-                me.listarCategoria(1, '', 'nombre');
+                me.listarProducto(1, '', 'nombre');
             }).catch(function (error) {
                 console.log(error);
             });
@@ -49096,12 +49100,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        validarCategoria: function validarCategoria() {
+        validarProducto: function validarProducto() {
             this.errorProducto = 0;
             this.errorMostrarMesjProducto = [];
-            if (!this.nombre) this.errorMostrarMesjProducto.push("El nombre de la categoria no puede estar vacio");
+            if (this.idcategoria == 0) this.errorMostrarMesjProducto.push("Seleccione una categoria");
+            if (!this.stock) this.errorMostrarMesjProducto.push("El stock debe ser un numero y no debe estar vacio");
+            if (!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta debe ser un numero y no debe estar vacio");
+            if (!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
             if (this.errorMostrarMesjProducto.length) this.errorProducto = 1;
-            return this.errorCategoria;
+            return this.errorProducto;
         },
         abrirModal: function abrirModal(modelo, accion) {
             var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -49116,8 +49123,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 {
                                     this.modal = 1;
                                     this.tituloModal = 'Registrar Producto';
-
+                                    this.idcategoria = 0;
+                                    this.nombre_categoria = '';
+                                    this.codigo = '';
                                     this.nombre = '';
+                                    this.precio_venta = 0;
+                                    this.stock = 0;
                                     this.descripcion = '';
                                     this.tipoAccion = 1;
                                     break;
@@ -49130,7 +49141,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.tipoAccion = 2;
                                     this.nombre = data['nombre'];
                                     this.descripcion = data['descripcion'];
-                                    this.categoria_id = data['id'];
+                                    this.producto_id = data['id'];
+                                    this.idcategoria = data['idcategoria'];
+                                    this.codigo = data['codigo'];
+                                    this.stock = data['stock'];
+                                    this.precio_venta = ['precio_venta'];
                                     break;
                                 }
                         }
@@ -49143,8 +49158,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cerrarModal: function cerrarModal() {
             this.modal = 0;
             this.tituloModal = '';
+            this.idcategoria = 0;
+            this.nombre_categoria = '';
+            this.codigo = '';
             this.nombre = '';
+            this.precio_venta = 0;
+            this.stock = 0;
             this.descripcion = '';
+            this.errorProducto = 0;
         }
     },
     mounted: function mounted() {
@@ -49788,8 +49809,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.errorCategoria,
-                            expression: "errorCategoria"
+                            value: _vm.errorProducto,
+                            expression: "errorProducto"
                           }
                         ],
                         staticClass: "form-group row div-error"
@@ -49834,7 +49855,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            _vm.registrarCategoria()
+                            _vm.registrarProducto()
                           }
                         }
                       },
@@ -49850,7 +49871,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            _vm.actualizarCategoria()
+                            _vm.actualizarProducto()
                           }
                         }
                       },
