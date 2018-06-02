@@ -297,6 +297,7 @@ import VueBarcode from 'vue-barcode';
                 axios.post('/producto/registrar',{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     'idcategoria' : this.idcategoria,
                     'nombre' : this.nombre,
                     'codigo' : this.codigo,
@@ -305,12 +306,17 @@ import VueBarcode from 'vue-barcode';
 =======
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                     'idcategoria':this.idcategoria,
                     'codigo':this.codigo,
                     'nombre' : this.nombre,
                     'stock': this.stock,
                     'precio_venta':this.precio_venta,
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
@@ -435,6 +441,7 @@ import VueBarcode from 'vue-barcode';
                 this.errorMostrarMesjProducto=[];
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if(this.idcategoria==0) this.errorMostrarMesjProducto.push("Seleccione una categoria")
                 if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
                 if(!this.stock) this.errorMostrarMesjProducto.push("El stock del Producto debe ser un numero entero y nu puede estar vacio");
@@ -443,11 +450,16 @@ import VueBarcode from 'vue-barcode';
 =======
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                 if(this.idcategoria==0) this.errorMostrarMesjProducto.push("Seleccione una categoria");
                 if(!this.stock) this.errorMostrarMesjProducto.push("El stock debe ser un numero y no debe estar vacio");
                 if(!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta debe ser un numero y no debe estar vacio");
                 if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
@@ -467,8 +479,13 @@ import VueBarcode from 'vue-barcode';
                             this.idcategoria = 0;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             this.nombre_categoria = '';
                             this.codigo ='';
+=======
+                            this.nombre_categoria='';
+                            this.codigo='';
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
                             this.nombre_categoria='';
                             this.codigo='';
@@ -501,7 +518,10 @@ import VueBarcode from 'vue-barcode';
                             this.descripcion = data['descripcion'];
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                             this.producto_id = data['id'];
@@ -510,6 +530,9 @@ import VueBarcode from 'vue-barcode';
                             this.stock=data['stock'];
                             this.precio_venta=['precio_venta'];
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
@@ -524,6 +547,7 @@ import VueBarcode from 'vue-barcode';
             },
             cerrarModal(){
                 this.modal = 0;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 this.tituloModal = '';
@@ -549,11 +573,21 @@ import VueBarcode from 'vue-barcode';
                 this.codigo='';
                 this.nombre = '';
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+                this.tituloModal='';
+                this.idcategoria=0;
+                this.nombre_categoria='';
+                this.codigo='';
+                this.nombre = '';
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                 this.precio_venta = 0;
                 this.stock=0;
                 this.descripcion='';
                 this.errorProducto = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f

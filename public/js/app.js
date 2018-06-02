@@ -49016,10 +49016,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'idcategoria': this.idcategoria,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 'nombre': this.nombre,
                 'codigo': this.codigo,
                 'precio_venta': this.precio_venta,
                 'stock': this.stock,
+=======
+                'codigo': this.codigo,
+                'nombre': this.nombre,
+                'stock': this.stock,
+                'precio_venta': this.precio_venta,
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
                 'codigo': this.codigo,
                 'nombre': this.nombre,
@@ -49136,10 +49143,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.idcategoria == 0) this.errorMostrarMesjProducto.push("Seleccione una categoria");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
             if (!this.stock) this.errorMostrarMesjProducto.push("El stock del Producto debe ser un numero entero y nu puede estar vacio");
             if (!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta del articulo debe ser un numero y no puede estar vacio");
 
+=======
+            if (!this.stock) this.errorMostrarMesjProducto.push("El stock debe ser un numero y no debe estar vacio");
+            if (!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta debe ser un numero y no debe estar vacio");
+            if (!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
             if (!this.stock) this.errorMostrarMesjProducto.push("El stock debe ser un numero y no debe estar vacio");
             if (!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta debe ser un numero y no debe estar vacio");
@@ -49193,7 +49206,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.descripcion = data['descripcion'];
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                                     this.producto_id = data['id'];
@@ -49202,6 +49218,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.stock = data['stock'];
                                     this.precio_venta = ['precio_venta'];
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
 =======
 >>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
