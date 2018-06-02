@@ -11,7 +11,7 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         //
-        //if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -84,15 +84,15 @@ class ProductoController extends Controller
         $producto->save();
     }
 
-    public function offcategoria(Request $request)    {
+    public function offproducto(Request $request)    {
         //parecido a actualizar
         if(!$request->ajax()) return redirect('/');
         $producto = Producto::findOrFail($request->id);
-        $producto->condicion = '1';
+        $producto->condicion = '0';
         $producto->save();
     }
 
-    public function oncategoria(Request $request)    {
+    public function onproducto(Request $request)    {
         //
         //parecido a actualizar
         if(!$request->ajax()) return redirect('/');

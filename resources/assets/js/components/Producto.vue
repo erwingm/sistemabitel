@@ -46,12 +46,12 @@
                                           <i class="icon-pencil"></i>
                                         </button> &nbsp;
                                         <template v-if="producto.condicion">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarCategoria(producto.id)">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarProducto(producto.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
                                         <template v-else>
-                                            <button type="button" class="btn btn-info btn-sm" @click="activarCategoria(producto.id)">
+                                            <button type="button" class="btn btn-info btn-sm" @click="activarProducto(producto.id)">
                                                 <i class="icon-check"></i>
                                             </button>
                                         </template>
@@ -121,6 +121,9 @@
                                     <div class="col-md-9">
                                         <input type="text" v-model="codigo" class="form-control" placeholder="Codigo de Barras">
                                     </div>
+                                    <barcode :value="codigo" :options="{ format: 'EAN-13'}">
+                                        Generando codigo de barras
+                                    </barcode>
                                 </div>
 
                                 <div class="form-group row">
@@ -175,8 +178,11 @@
 </template>
 
 <script>
+import VueBarcode from 'vue-barcode';
+
     export default {
         data(){
+     
             return{
                 producto_id:0,
                 idcategoria:0,
@@ -214,6 +220,9 @@
             }
         },
 
+            components: {
+        'barcode': VueBarcode
+    },
         computed: {
             isActived: function(){
                 return this.pagination.current_page;
@@ -286,11 +295,25 @@
                 let me = this;
 
                 axios.post('/producto/registrar',{
+<<<<<<< HEAD
+<<<<<<< HEAD
                     'idcategoria' : this.idcategoria,
                     'nombre' : this.nombre,
                     'codigo' : this.codigo,
                     'precio_venta' : this.precio_venta,
                     'stock' : this.stock,
+=======
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+                    'idcategoria':this.idcategoria,
+                    'codigo':this.codigo,
+                    'nombre' : this.nombre,
+                    'stock': this.stock,
+                    'precio_venta':this.precio_venta,
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                     'descripcion' :this.descripcion
 
                 }).then(function(response){
@@ -300,24 +323,28 @@
                     console.log(error);
                 });
             },
-            actualizarCategoria(){
-                 if(this.validarCategoria()){
+            actualizarProducto(){
+                 if(this.validarProducto()){
                     return;
                 }
                 let me = this;
 
-                axios.put('/categoria/actualizar',{
-                    'id' : this.categoria_id,
+                axios.put('/producto/actualizar',{
+                    'idcategoria' : this.idcategoria,
                     'nombre' : this.nombre,
-                    'descripcion' :this.descripcion
+                    'codigo' : this.codigo,
+                    'precio_venta' : this.precio_venta,
+                    'stock' : this.stock,
+                    'descripcion' :this.descripcion,
+                    'id': this.producto_id
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCategoria(1,'','nombre');
+                    me.listarProducto(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            desactivarCategoria(id){
+            desactivarProducto(id){
                 swal({
                     title: '¿Estas Seguro de Desactivar?',
                     type: 'warning',
@@ -334,10 +361,10 @@
                     if (result.value) {
                         let me = this;
 
-                        axios.put('/categoria/desactivar',{
+                        axios.put('/producto/desactivar',{
                             'id': id
                         }).then(function(response){
-                            me.listarCategoria(1,'','nombre');
+                            me.listarProducto(1,'','nombre');
                             swal(
                                 'Desactivado!',
                                 'El registro ha sido desactivado Correctamente.',
@@ -360,9 +387,9 @@
                     }
                     })
             },
-            activarCategoria(id){
+            activarProducto(id){
                     swal({
-                    title: '¿Estas Seguro de Activar la Categoria?',
+                    title: '¿Estas Seguro de Activar?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -377,10 +404,10 @@
                     if (result.value) {
                         let me = this;
 
-                        axios.put('/categoria/activar',{
+                        axios.put('/producto/activar',{
                             'id': id
                         }).then(function(response){
-                            me.listarCategoria(1,'','nombre');
+                            me.listarProducto(1,'','nombre');
                             swal(
                                 'Activado!',
                                 'El registro ha sido Activado Correctamente.',
@@ -406,11 +433,24 @@
             validarProducto(){
                 this.errorProducto=0;
                 this.errorMostrarMesjProducto=[];
+<<<<<<< HEAD
+<<<<<<< HEAD
                 if(this.idcategoria==0) this.errorMostrarMesjProducto.push("Seleccione una categoria")
                 if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
                 if(!this.stock) this.errorMostrarMesjProducto.push("El stock del Producto debe ser un numero entero y nu puede estar vacio");
                 if(!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta del articulo debe ser un numero y no puede estar vacio");
 
+=======
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+                if(this.idcategoria==0) this.errorMostrarMesjProducto.push("Seleccione una categoria");
+                if(!this.stock) this.errorMostrarMesjProducto.push("El stock debe ser un numero y no debe estar vacio");
+                if(!this.precio_venta) this.errorMostrarMesjProducto.push("El precio de venta debe ser un numero y no debe estar vacio");
+                if(!this.nombre) this.errorMostrarMesjProducto.push("El nombre del producto no puede estar vacio");
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                 if(this.errorMostrarMesjProducto.length) this.errorProducto=1;
                 return this.errorProducto;
             },
@@ -425,9 +465,21 @@
                             this.modal  = 1;
                             this.tituloModal = 'Registrar Producto';
                             this.idcategoria = 0;
+<<<<<<< HEAD
+<<<<<<< HEAD
                             this.nombre_categoria = '';
                             this.codigo ='';
+=======
+                            this.nombre_categoria='';
+                            this.codigo='';
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+                            this.nombre_categoria='';
+                            this.codigo='';
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                             this.nombre = '';
+                            this.precio_venta = 0;
+                            this.stock = 0;
                             this.descripcion = '';
                             this.precio_venta = 0;
                             this.stock = 0;
@@ -447,6 +499,20 @@
                             this.stock = data['stock'];
                             this.precio_venta = data ['precio_venta'];
                             this.descripcion = data['descripcion'];
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+                            this.producto_id = data['id'];
+                            this.idcategoria= data['idcategoria'];
+                            this.codigo=data['codigo'];
+                            this.stock=data['stock'];
+                            this.precio_venta=['precio_venta'];
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
                             break;
                         }
                     }
@@ -458,6 +524,8 @@
             },
             cerrarModal(){
                 this.modal = 0;
+<<<<<<< HEAD
+<<<<<<< HEAD
                 this.tituloModal = '';
                 this.idcategoria = 0;
                 this.nombre_categoria='';
@@ -468,6 +536,27 @@
                 this.descripcion = '';
                 this.errorProducto =0;
 
+=======
+                this.tituloModal='';
+                this.idcategoria=0;
+                this.nombre_categoria='';
+                this.codigo='';
+                this.nombre = '';
+=======
+                this.tituloModal='';
+                this.idcategoria=0;
+                this.nombre_categoria='';
+                this.codigo='';
+                this.nombre = '';
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+                this.precio_venta = 0;
+                this.stock=0;
+                this.descripcion='';
+                this.errorProducto = 0;
+<<<<<<< HEAD
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
+=======
+>>>>>>> 0005d36e305c9593620a343890cfbdeae2b7b12f
             }
         },
         mounted() {

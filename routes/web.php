@@ -25,5 +25,5 @@ Route::get('/categoria/selectCategoria','CategoriaController@selectCategoria');
 Route::get('/producto','ProductoController@index');
 Route::post('/producto/registrar','ProductoController@store');
 Route::put('/producto/actualizar','ProductoController@update');
-Route::put('/producto/desactivar','ProductoController@offcategoria');
-Route::put('/producto/activar','ProductoController@oncategoria');
+Route::put('/producto/desactivar','ProductoController@offproducto');
+Route::put('/producto/activar','ProductoController@onproducto');
